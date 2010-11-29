@@ -85,7 +85,7 @@ class Archive_Zip extends Archive {
 		$timestamp = date::unix2dos(($contents === NULL) ? filemtime($file) : time());
 
 		// Read the file or use the defined contents
-		$data = ($contents === NULL) ? file_get_contents($file) : $contents;
+		$data = ($contents === NULL AND ! is_dir($file)) ? file_get_contents($file) : $contents;
 
 		// Gzip the data, use substr to fix a CRC bug
 		$zdata = substr(gzcompress($data), 2, -4);
